@@ -4,6 +4,7 @@ BudgetBuddy is an android app. This app is ultimate companion for effortlessly m
 # Group S 1 G 10
 - Junaid Ahmed
 - Winston Jeyaseelan
+- Autsav Adhikari
 
 # Data Source
 Single-user input. All data will originate from the user and stay within the device.
@@ -19,3 +20,8 @@ Single-user input. All data will originate from the user and stay within the dev
 - User can Delete Transaction Details from the System.
 - User can view monthly Details on Graph.
 - User can view different categories of expenses on the system.
+
+- User can search by months.
+- User can swipe calander on daily basis.
+- User can record monthly transactions.
+- User can use dark mode.
