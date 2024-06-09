@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+
 import java.util.List;
 
 public class TransactionViewModel extends AndroidViewModel {
@@ -22,6 +23,6 @@ public class TransactionViewModel extends AndroidViewModel {
     }
 
     public void insert(Transaction transaction) {
-        repository.insert(transaction);
+        repository.insert((com.example.budgetbuddy.Transaction) transaction);
     }
 }

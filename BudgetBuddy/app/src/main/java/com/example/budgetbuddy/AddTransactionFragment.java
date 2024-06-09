@@ -7,23 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.budgetbuddycopy.databinding.FragmentAddTransactionBinding;
+import com.example.budgetbuddy.databinding.FragmentAddTransactionBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddTransactionFragment extends BottomSheetDialogFragment {
 
     private FragmentAddTransactionBinding binding;
-    private com.example.budgetbuddy.TransactionViewModel transactionViewModel;
+    private TransactionViewModel transactionViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        transactionViewModel = new ViewModelProvider(requireActivity()).get(com.example.budgetbuddycopy.TransactionViewModel.class);
+        transactionViewModel = new ViewModelProvider(requireActivity()).get(com.example.budgetbuddy.TransactionViewModel.class);
     }
 
     @Nullable
@@ -49,7 +47,7 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
             String date = binding.Date.getText().toString();
             String amountStr = binding.amount.getText().toString();
             double amount = Double.parseDouble(amountStr);
-            com.example.budgetbuddycopy.Transaction transaction = new com.example.budgetbuddycopy.Transaction(date, amount);
+            Transaction transaction = new Transaction(date, amount);
             transactionViewModel.insert(transaction);
             dismiss();
         });

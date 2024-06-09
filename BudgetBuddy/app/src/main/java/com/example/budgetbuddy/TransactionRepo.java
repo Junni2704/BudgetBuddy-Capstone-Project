@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TransactionRepo {
-    private final DatabaseDAO transactionDao;
+    private DatabaseDAO transactionDao;
     private LiveData<List<Transaction>> allTransactions;
     private static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(1);
 

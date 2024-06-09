@@ -5,9 +5,12 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "transaction_table")
 public class Transaction {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String date;
     private double amount;
+
+    public Transaction() {}
 
     public Transaction(String date, double amount) {
         this.date = date;

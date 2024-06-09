@@ -1,16 +1,10 @@
 package com.example.budgetbuddy;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.budgetbuddy.databinding.ActivityMainBinding;
 
 import java.util.List;
@@ -32,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("BudgetBuddy");
 
         adapter = new TransactionAdapter();
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerVieww.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerVieww.setAdapter(adapter);
 
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
         transactionViewModel.getAllTransactions().observe(this, new Observer<List<Transaction>>() {
