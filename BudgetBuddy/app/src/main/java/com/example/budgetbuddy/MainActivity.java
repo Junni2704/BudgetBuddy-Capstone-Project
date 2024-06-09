@@ -28,3 +28,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+//Closing #3
