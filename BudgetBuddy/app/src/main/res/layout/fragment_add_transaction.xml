@@ -58,7 +58,8 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Amount" />
+                    android:hint="Enter Amount"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -69,6 +70,7 @@
                 android:backgroundTint="@color/blue"
                 android:gravity="center"
                 android:text="Save Transaction"
+                android:textColor="#FFFFFF"
                 app:cornerRadius="3dp" />
 
         </LinearLayout>
