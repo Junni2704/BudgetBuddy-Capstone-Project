@@ -18,7 +18,7 @@ import java.util.Calendar;
 public class AddTransactionFragment extends BottomSheetDialogFragment {
 
     private FragmentAddTransactionBinding binding;
-    private com.example.budgetbuddycopy.TransactionViewModel transactionViewModel;
+    private com.example.budgetbuddy.TransactionViewModel transactionViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

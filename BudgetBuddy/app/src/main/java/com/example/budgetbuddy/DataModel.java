@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "transaction_table")
 public class DataModel {
-    @PrimaryKey(autoGenerate = true)
     private int id;
     private String date;
     private double amount;
