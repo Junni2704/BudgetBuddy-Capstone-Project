@@ -1,4 +1,4 @@
-package com.example.budgetbuddycopy;
+package com.example.budgetbuddy;
 
 import android.app.Application;
 import androidx.annotation.NonNull;

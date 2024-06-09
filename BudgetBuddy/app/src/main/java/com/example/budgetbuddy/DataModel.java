@@ -4,13 +4,13 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "transaction_table")
-public class Transaction {
+public class DataModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String date;
     private double amount;
 
-    public Transaction(String date, double amount) {
+    public DataModel(String date, double amount) {
         this.date = date;
         this.amount = amount;
     }
@@ -27,15 +27,7 @@ public class Transaction {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 }
