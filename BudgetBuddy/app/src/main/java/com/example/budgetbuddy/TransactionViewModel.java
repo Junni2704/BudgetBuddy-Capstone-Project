@@ -23,6 +23,6 @@ public class TransactionViewModel extends AndroidViewModel {
     }
 
     public void insert(Transaction transaction) {
-        repository.insert((com.example.budgetbuddy.Transaction) transaction);
+        repository.insert(transaction);
     }
 }

@@ -19,15 +19,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        setContentView(binding.getRoot());
 
 
         setSupportActionBar(binding.toolBar);
         getSupportActionBar().setTitle("BudgetBuddy");
 
         adapter = new TransactionAdapter();
-        binding.recyclerVieww.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerVieww.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setAdapter(adapter);
 
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
         transactionViewModel.getAllTransactions().observe(this, new Observer<List<Transaction>>() {
