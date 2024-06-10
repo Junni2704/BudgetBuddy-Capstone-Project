@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolBar);
         getSupportActionBar().setTitle("BudgetBuddy");
 
+
         adapter = new TransactionAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
