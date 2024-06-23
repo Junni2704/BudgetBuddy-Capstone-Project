@@ -42,7 +42,13 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
         holder.transactionDate.setText(transaction.getDate());
         holder.transactionAmount.setText(String.format("$%.2f", transaction.getAmount()));
         holder.categoryName.setText(transaction.getCategoryName());
-        holder.categoryIcon.setImageResource(transaction.getCategoryIcon());    }
+        holder.categoryIcon.setImageResource(transaction.getCategoryIcon());   
+        if ("Income".equals(transaction.getType())) {
+            holder.transactionAmount.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.green));
+        } else if ("Expense".equals(transaction.getType())) {
+            holder.transactionAmount.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.blue));
+        }
+    }
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         TextView transactionDate;

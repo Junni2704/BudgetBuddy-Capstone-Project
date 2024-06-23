@@ -29,6 +29,18 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddTransactionBinding.inflate(inflater, container, false);
 
+        binding.incomeBtn.setOnClickListener(view -> {
+            binding.incomeBtn.setBackground(getContext().getDrawable(R.drawable.income_selector));
+            binding.expenseBtn.setBackground(getContext().getDrawable(R.drawable.default_selector));
+            transactionType = "Income"; // Set transaction type to Income
+        });
+
+        binding.expenseBtn.setOnClickListener(view -> {
+            binding.incomeBtn.setBackground(getContext().getDrawable(R.drawable.default_selector));
+            binding.expenseBtn.setBackground(getContext().getDrawable(R.drawable.expense_selector));
+            transactionType = "Expense"; // Set transaction type to Expense
+        });
+
         binding.Date.setOnClickListener(view -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
             datePickerDialog.setOnDateSetListener((datePicker, year, month, day) -> {

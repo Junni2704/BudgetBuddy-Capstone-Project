@@ -16,13 +16,30 @@ public class TransactionViewModel extends AndroidViewModel {
         super(application);
         repository = new TransactionRepo(application);
         allTransactions = repository.getAllTransactions();
+
+        totalIncome = Transformations.map(allTransactions, transactions -> {
+            double sum = 0;
+            for (Transaction transaction : transactions) {
+                if ("Income".equals(transaction.getType())) {
+                    sum += transaction.getAmount();
+                }
+            }
+            return sum;
+        });
     }
 
     public LiveData<List<Transaction>> getAllTransactions() {
         return allTransactions;
     }
 
+    public LiveData<Double> getTotalIncome() {
+        return totalIncome;
+    }
+
     public void insert(Transaction transaction) {
         repository.insert(transaction);
     }
 }
+
+
+
