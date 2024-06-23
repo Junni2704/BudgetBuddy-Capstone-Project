@@ -10,11 +10,18 @@ public class Transaction {
     private String date;
     private double amount;
 
+    private String categoryName;
+    private int categoryIcon;
+
+
     public Transaction() {}
 
     public Transaction(String date, double amount) {
         this.date = date;
         this.amount = amount;
+        this.categoryName = categoryName;
+        this.categoryIcon = categoryIcon;
+
     }
 
     public int getId() {
@@ -40,4 +47,10 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public String getCategoryName() { return categoryName; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+
+    public int getCategoryIcon() { return categoryIcon; }
+    public void setCategoryIcon(int categoryIcon) { this.categoryIcon = categoryIcon; }
 }

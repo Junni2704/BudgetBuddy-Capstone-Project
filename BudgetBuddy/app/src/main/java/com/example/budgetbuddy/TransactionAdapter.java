@@ -39,16 +39,21 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
         Transaction transaction = getItem(position);
         holder.transactionDate.setText(transaction.getDate());
         holder.transactionAmount.setText(String.format("$%.2f", transaction.getAmount()));
-    }
+        holder.categoryName.setText(transaction.getCategoryName());
+        holder.categoryIcon.setImageResource(transaction.getCategoryIcon());    }
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         TextView transactionDate;
         TextView transactionAmount;
+        TextView categoryName;
+        ImageView categoryIcon;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             transactionDate = itemView.findViewById(R.id.transactionDate);
             transactionAmount = itemView.findViewById(R.id.Date);
+            categoryName = itemView.findViewById(R.id.category);
+            categoryIcon = itemView.findViewById(R.id.transactionIcon); 
         }
     }
 }
