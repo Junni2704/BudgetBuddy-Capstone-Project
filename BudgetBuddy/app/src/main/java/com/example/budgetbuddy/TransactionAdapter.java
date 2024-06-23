@@ -53,7 +53,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
             transactionDate = itemView.findViewById(R.id.transactionDate);
             transactionAmount = itemView.findViewById(R.id.Date);
             categoryName = itemView.findViewById(R.id.category);
-            categoryIcon = itemView.findViewById(R.id.transactionIcon); 
+            categoryIcon = itemView.findViewById(R.id.transactionIcon);
         }
     }
 }

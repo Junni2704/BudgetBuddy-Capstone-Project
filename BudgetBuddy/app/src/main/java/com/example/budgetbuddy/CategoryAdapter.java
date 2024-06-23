@@ -1,4 +1,4 @@
-package com.example.budgetbuddycopy;
+package com.example.budgetbuddy;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.budgetbuddycopy.databinding.SampleCategoryItemBinding;
+import com.example.budgetbuddy.databinding.SampleCategoryItemBinding;
 
 import java.util.ArrayList;
 

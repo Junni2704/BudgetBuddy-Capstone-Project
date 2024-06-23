@@ -1,4 +1,4 @@
-package com.example.budgetbuddycopy;
+package com.example.budgetbuddy;
 
 public class Category {
     private String categoryName;
