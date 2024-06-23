@@ -40,3 +40,4 @@ public class Category {
         this.categoryColor = categoryColor;
     }
 }
+//DONE WITH CATEGORIES
