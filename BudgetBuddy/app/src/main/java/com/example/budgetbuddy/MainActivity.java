@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
 
 
@@ -36,6 +35,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 adapter.submitList(transactions);
+            }
+        });
+
+        transactionViewModel.getTotalIncome().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double totalIncome) {
+                binding.incomeView.setText(String.format("$%.2f", totalIncome));
+            }
+        });
+
+        transactionViewModel.getTotalExpense().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double totalExpense) {
+                binding.expenseView.setText(String.format("$%.2f", totalExpense));
+            }
+        });
+
+        transactionViewModel.getBalance().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double balance) {
+                binding.totalView.setText(String.format("$%.2f", balance));
             }
         });
 

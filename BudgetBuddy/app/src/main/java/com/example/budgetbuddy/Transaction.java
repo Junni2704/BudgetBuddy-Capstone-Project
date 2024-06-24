@@ -9,18 +9,23 @@ public class Transaction {
     private int id;
     private String date;
     private double amount;
-
+    private String transactionAccount;
+    private String type;
     private String categoryName;
     private int categoryIcon;
 
 
+
     public Transaction() {}
 
-    public Transaction(String date, double amount) {
+    public Transaction(String date, double amount, String transactionAccount, String type, String categoryName, int categoryIcon) {
         this.date = date;
         this.amount = amount;
+        this.transactionAccount = transactionAccount;
+        this.type = type;
         this.categoryName = categoryName;
         this.categoryIcon = categoryIcon;
+
 
     }
 
@@ -47,6 +52,12 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public String getTransactionAccount() { return transactionAccount; }
+    public void setTransactionAccount(String transactionAccount) { this.transactionAccount = transactionAccount; }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
     public String getCategoryName() { return categoryName; }
     public void setCategoryName(String categoryName) { this.categoryName = categoryName; }

@@ -41,6 +41,7 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
         Transaction transaction = getItem(position);
         holder.transactionDate.setText(transaction.getDate());
         holder.transactionAmount.setText(String.format("$%.2f", transaction.getAmount()));
+        holder.transactionAccount.setText(transaction.getTransactionAccount());
         holder.categoryName.setText(transaction.getCategoryName());
         holder.categoryIcon.setImageResource(transaction.getCategoryIcon());   
         if ("Income".equals(transaction.getType())) {
@@ -53,13 +54,15 @@ public class TransactionAdapter extends ListAdapter<Transaction, TransactionAdap
     public static class TransactionViewHolder extends RecyclerView.ViewHolder {
         TextView transactionDate;
         TextView transactionAmount;
+        TextView transactionAccount;
         TextView categoryName;
         ImageView categoryIcon;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             transactionDate = itemView.findViewById(R.id.transactionDate);
-            transactionAmount = itemView.findViewById(R.id.Date);
+            transactionAmount = itemView.findViewById(R.id.tran_amount); // Ensure this ID matches your layout
+            transactionAccount = itemView.findViewById(R.id.accountLbl); // Ensure this ID matches your layout
             categoryName = itemView.findViewById(R.id.category);
             categoryIcon = itemView.findViewById(R.id.transactionIcon);
         }
