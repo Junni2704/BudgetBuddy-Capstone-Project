@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TransactionAdapter adapter;
     private TransactionViewModel transactionViewModel;
+    private SimpleDateFormat monthlyDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+    private boolean isMonthlyView = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,28 @@ public class MainActivity extends AppCompatActivity {
             AddTransactionFragment fragment = new AddTransactionFragment();
             fragment.show(getSupportFragmentManager(), null);
         });
+    }
+    private void loadTransactions() {
+        if (isMonthlyView) {
+            String year = String.valueOf(currentCalendar.get(Calendar.YEAR));
+            String month = String.format(Locale.getDefault(), "%02d", currentCalendar.get(Calendar.MONTH) + 1);
+            transactionViewModel.getTransactionsForMonth(year, month).observe(this, new Observer<List>() {
+                @Override
+                public void onChanged(List transactions) {
+                    Log.d("MainActivity", "Monthly Transactions: " + transactions);
+                    filterTransactions(transactions);
+                }
+            });
+        } else {
+            String selectedDate = dailyDateFormat.format(currentCalendar.getTime());
+            transactionViewModel.getTransactionsForDate(selectedDate).observe(this, new Observer<List>() {
+                @Override
+                public void onChanged(List transactions) {
+                    Log.d("MainActivity", "Daily Transactions: " + transactions);
+                    filterTransactions(transactions);
+                }
+            });
+        }
     }
 }
 

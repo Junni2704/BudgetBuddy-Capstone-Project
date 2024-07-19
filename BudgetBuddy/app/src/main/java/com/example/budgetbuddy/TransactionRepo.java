@@ -21,6 +21,12 @@ public class TransactionRepo {
         return allTransactions;
     }
 
+    public LiveData<List<Transaction>> getTransactionsForMonth(String year, String month) {
+        LiveData<List<Transaction>> transactions = transactionDao.getTransactionsForMonth(year, month);
+        transactions.observeForever(trans -> Log.d("TransactionRepo", "Transactions for month " + month + " of " + year + ": " + trans));
+        return transactions;
+    }
+
     public void insert(Transaction transaction) {
         databaseWriteExecutor.execute(() -> transactionDao.insert(transaction));
     }
