@@ -139,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
         binding.totalView.setText(String.format("$%.2f", balance));
         adapter.submitList(filteredTransactions);
     }
-
+    private void showDeleteConfirmationDialog(Transaction transaction) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Transaction")
+                .setMessage("Are you sure you want to delete this transaction?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    transactionViewModel.deleteTransaction(transaction);
+                    Toast.makeText(MainActivity.this, "Transaction deleted", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 
 }

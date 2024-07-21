@@ -2,6 +2,7 @@ package com.example.budgetbuddy;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -21,4 +22,6 @@ public interface DatabaseDAO {
 
     @Query("SELECT * FROM transaction_table WHERE strftime('%Y', date) = :year AND strftime('%m', date) = :month ORDER BY id DESC")
     LiveData<List<Transaction>> getTransactionsForMonth(String year, String month);
+    @Delete
+    void delete(Transaction transaction);
 }
