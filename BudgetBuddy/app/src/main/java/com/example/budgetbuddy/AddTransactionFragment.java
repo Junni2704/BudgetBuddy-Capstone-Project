@@ -17,6 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Locale; // Add these
+
 
 
 public class AddTransactionFragment extends BottomSheetDialogFragment {
@@ -27,6 +29,9 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
     private String transactionType;
     private String selectedCategoryName;
     private int selectedCategoryIcon;
+    private String selectedDate;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()); // Add these
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +62,11 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, day);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-                String dateToShow = dateFormat.format(calendar.getTime());
-                binding.Date.setText(dateToShow);
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
+//                String dateToShow = dateFormat.format(calendar.getTime());
+//                binding.Date.setText(dateToShow);
+                selectedDate = dateFormat.format(calendar.getTime()); // Add these
+                binding.Date.setText(selectedDate); // Add these
             });
             datePickerDialog.show();
         });
@@ -119,15 +126,16 @@ public class AddTransactionFragment extends BottomSheetDialogFragment {
         });
 
         binding.saveTransactionBtn.setOnClickListener(view -> {
-            String date = binding.Date.getText().toString();
+            String date = selectedDate != null ? selectedDate : dateFormat.format(Calendar.getInstance().getTime()); // Add these
             String amountStr = binding.amount.getText().toString();
-            double amount = Double.parseDouble(amountStr);
-            String transactionAccount = selectedAccount; // Use selected account
-            Transaction transaction = new Transaction(date, amount, transactionAccount, transactionType, selectedCategoryName, selectedCategoryIcon); // Pass transaction type and category details
-            transactionViewModel.insert(transaction);
+            double amount = amountStr.isEmpty() ? 0 : Double.parseDouble(amountStr);
+            String transactionAccount = selectedAccount;
+            Transaction transaction = new Transaction(date, amount, transactionAccount, transactionType, selectedCategoryName, selectedCategoryIcon);
+
+            requireActivity().runOnUiThread(() -> transactionViewModel.insert(transaction));
+
             dismiss();
         });
-
         return binding.getRoot();
     }
 }

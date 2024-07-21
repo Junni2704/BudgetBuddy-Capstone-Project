@@ -7,6 +7,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.budgetbuddy.databinding.ActivityMainBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.List;
 
 
@@ -17,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private TransactionViewModel transactionViewModel;
     private SimpleDateFormat monthlyDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private boolean isMonthlyView = false;
+    private Calendar currentCalendar = Calendar.getInstance();
+    private SimpleDateFormat dailyDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,40 +44,58 @@ public class MainActivity extends AppCompatActivity {
         binding.recyclerView.setAdapter(adapter);
 
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
-        transactionViewModel.getAllTransactions().observe(this, new Observer<List<Transaction>>() {
+
+
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(List<Transaction> transactions) {
-                adapter.submitList(transactions);
+            public void onTabSelected(TabLayout.Tab tab) {
+                isMonthlyView = tab.getPosition() == 1; // 1 is the position for the MONTHLY tab
+                updateDateDisplay();
+                loadTransactions();
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
 
-        transactionViewModel.getTotalIncome().observe(this, new Observer<Double>() {
-            @Override
-            public void onChanged(Double totalIncome) {
-                binding.incomeView.setText(String.format("$%.2f", totalIncome));
+        binding.prevDateBtn.setOnClickListener(view -> {
+            if (isMonthlyView) {
+                currentCalendar.add(Calendar.MONTH, -1);
+            } else {
+                currentCalendar.add(Calendar.DAY_OF_MONTH, -1);
             }
+            updateDateDisplay();
+            loadTransactions();
         });
 
-        transactionViewModel.getTotalExpense().observe(this, new Observer<Double>() {
-            @Override
-            public void onChanged(Double totalExpense) {
-                binding.expenseView.setText(String.format("$%.2f", totalExpense));
+        binding.nextDateBtn.setOnClickListener(view -> {
+            if (isMonthlyView) {
+                currentCalendar.add(Calendar.MONTH, 1);
+            } else {
+                currentCalendar.add(Calendar.DAY_OF_MONTH, 1);
             }
+            updateDateDisplay();
+            loadTransactions();
         });
 
-        transactionViewModel.getBalance().observe(this, new Observer<Double>() {
-            @Override
-            public void onChanged(Double balance) {
-                binding.totalView.setText(String.format("$%.2f", balance));
-            }
-        });
+        updateDateDisplay();
+        loadTransactions();
 
-        //Starting With View Transaction
         binding.floatingActionButton.setOnClickListener(view -> {
             AddTransactionFragment fragment = new AddTransactionFragment();
             fragment.show(getSupportFragmentManager(), null);
         });
     }
+
+    private void updateDateDisplay() {
+        String formattedDate = isMonthlyView ? monthlyDateFormat.format(currentCalendar.getTime()) : dailyDateFormat.format(currentCalendar.getTime());
+        binding.currentDate.setText(formattedDate);
+    }
+
     private void loadTransactions() {
         if (isMonthlyView) {
             String year = String.valueOf(currentCalendar.get(Calendar.YEAR));
@@ -89,6 +118,27 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-}
 
-//Closing #3
+    private void filterTransactions(List<Transaction> transactions) {
+        List<Transaction> filteredTransactions = new ArrayList<>();
+        double totalIncome = 0.0;
+        double totalExpense = 0.0;
+
+        for (Transaction transaction : transactions) {
+            filteredTransactions.add(transaction);
+            if (transaction.getTransactionType().equalsIgnoreCase("Income")) {
+                totalIncome += transaction.getAmount();
+            } else {
+                totalExpense += transaction.getAmount();
+            }
+        }
+
+        double balance = totalIncome - totalExpense;
+        binding.incomeView.setText(String.format("$%.2f", totalIncome));
+        binding.expenseView.setText(String.format("$%.2f", totalExpense));
+        binding.totalView.setText(String.format("$%.2f", balance));
+        adapter.submitList(filteredTransactions);
+    }
+
+
+}

@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
-
 import java.util.List;
 
 public class TransactionViewModel extends AndroidViewModel {
@@ -24,7 +23,7 @@ public class TransactionViewModel extends AndroidViewModel {
         totalIncome = Transformations.map(allTransactions, transactions -> {
             double sum = 0;
             for (Transaction transaction : transactions) {
-                if ("Income".equals(transaction.getType())) {
+                if ("Income".equals(transaction.getTransactionType())) {
                     sum += transaction.getAmount();
                 }
             }
@@ -33,7 +32,7 @@ public class TransactionViewModel extends AndroidViewModel {
         totalExpense = Transformations.map(allTransactions, transactions -> {
             double sum = 0;
             for (Transaction transaction : transactions) {
-                if ("Expense".equals(transaction.getType())) {
+                if ("Expense".equals(transaction.getTransactionType())) {
                     sum += transaction.getAmount();
                 }
             }
@@ -44,9 +43,9 @@ public class TransactionViewModel extends AndroidViewModel {
             double income = 0;
             double expense = 0;
             for (Transaction transaction : transactions) {
-                if ("Income".equals(transaction.getType())) {
+                if ("Income".equals(transaction.getTransactionType())) {
                     income += transaction.getAmount();
-                } else if ("Expense".equals(transaction.getType())) {
+                } else if ("Expense".equals(transaction.getTransactionType())) {
                     expense += transaction.getAmount();
                 }
             }
@@ -73,7 +72,12 @@ public class TransactionViewModel extends AndroidViewModel {
     public void insert(Transaction transaction) {
         repository.insert(transaction);
     }
+
+    public LiveData<List<Transaction>> getTransactionsForDate(String date) {
+        return repository.getTransactionsForDate(date);
+    }
+
+    public LiveData<List<Transaction>> getTransactionsForMonth(String year, String month) {
+        return repository.getTransactionsForMonth(year, month);
+    }
 }
-
-
-
