@@ -44,4 +44,7 @@ public class TransactionRepo {
     public void insert(Transaction transaction) {
         databaseWriteExecutor.execute(() -> transactionDao.insert(transaction));
     }
+    public void deleteTransaction(Transaction transaction) {
+        executorService.execute(() -> transactionDao.delete(transaction));
+    }
 }

@@ -80,4 +80,7 @@ public class TransactionViewModel extends AndroidViewModel {
     public LiveData<List<Transaction>> getTransactionsForMonth(String year, String month) {
         return repository.getTransactionsForMonth(year, month);
     }
+    public void deleteTransaction(Transaction transaction) {
+        repository.deleteTransaction(transaction);
+    }
 }
