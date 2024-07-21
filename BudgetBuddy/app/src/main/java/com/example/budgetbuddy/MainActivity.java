@@ -1,43 +1,40 @@
 package com.example.budgetbuddy;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.budgetbuddy.databinding.ActivityMainBinding;
+import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
-import android.util.Log;
-import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.List;
-
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private TransactionAdapter adapter;
     private TransactionViewModel transactionViewModel;
-    private SimpleDateFormat monthlyDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-    private boolean isMonthlyView = false;
     private Calendar currentCalendar = Calendar.getInstance();
     private SimpleDateFormat dailyDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private SimpleDateFormat monthlyDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+    private boolean isMonthlyView = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         setSupportActionBar(binding.toolBar);
         getSupportActionBar().setTitle("BudgetBuddy");
-
 
         adapter = new TransactionAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
+        adapter.setOnItemLongClickListener(transaction -> showDeleteConfirmationDialog(transaction)); //AUTSAV
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 updateDateDisplay();
                 loadTransactions();
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
@@ -139,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         binding.totalView.setText(String.format("$%.2f", balance));
         adapter.submitList(filteredTransactions);
     }
+
     private void showDeleteConfirmationDialog(Transaction transaction) {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Transaction")
@@ -150,5 +150,4 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
-
 }
