@@ -19,6 +19,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
         app:titleTextColor="@color/white" />
+    <Button
+        android:id="@+id/toggleThemeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toggle Theme"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -54,6 +67,7 @@
             android:layout_height="wrap_content"
             android:rotation="180"
             app:srcCompat="@drawable/ic_chevron" />
+
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -213,22 +227,10 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu" >
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/green"
-        android:clickable="true"
-        app:backgroundTint="@color/green"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_plus"
-        app:tint="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -243,4 +245,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:listitem="@layout/row_transaction" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/green"
+        android:clickable="true"
+        app:backgroundTint="@color/green"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_plus"
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

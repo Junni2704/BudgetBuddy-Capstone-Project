@@ -3,11 +3,14 @@ package com.example.budgetbuddy;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.budgetbuddy.databinding.ActivityMainBinding;
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private SimpleDateFormat dailyDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private SimpleDateFormat monthlyDateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private boolean isMonthlyView = false;
+    private boolean isDarkMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
-        adapter.setOnItemLongClickListener(transaction -> showDeleteConfirmationDialog(transaction)); //AUTSAV
+        adapter.setOnItemLongClickListener(transaction -> showDeleteConfirmationDialog(transaction));
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -81,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
             loadTransactions();
         });
 
+        binding.toggleThemeButton.setOnClickListener(v -> {
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            isDarkMode = !isDarkMode;
+        });
+
         updateDateDisplay();
         loadTransactions();
 
@@ -88,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
             AddTransactionFragment fragment = new AddTransactionFragment();
             fragment.show(getSupportFragmentManager(), null);
         });
+
+        // Check the current theme and set isDarkMode accordingly
+        int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+            isDarkMode = true;
+        }
     }
 
     private void updateDateDisplay() {
@@ -99,18 +119,18 @@ public class MainActivity extends AppCompatActivity {
         if (isMonthlyView) {
             String year = String.valueOf(currentCalendar.get(Calendar.YEAR));
             String month = String.format(Locale.getDefault(), "%02d", currentCalendar.get(Calendar.MONTH) + 1);
-            transactionViewModel.getTransactionsForMonth(year, month).observe(this, new Observer<List>() {
+            transactionViewModel.getTransactionsForMonth(year, month).observe(this, new Observer<List<Transaction>>() {
                 @Override
-                public void onChanged(List transactions) {
+                public void onChanged(List<Transaction> transactions) {
                     Log.d("MainActivity", "Monthly Transactions: " + transactions);
                     filterTransactions(transactions);
                 }
             });
         } else {
             String selectedDate = dailyDateFormat.format(currentCalendar.getTime());
-            transactionViewModel.getTransactionsForDate(selectedDate).observe(this, new Observer<List>() {
+            transactionViewModel.getTransactionsForDate(selectedDate).observe(this, new Observer<List<Transaction>>() {
                 @Override
-                public void onChanged(List transactions) {
+                public void onChanged(List<Transaction> transactions) {
                     Log.d("MainActivity", "Daily Transactions: " + transactions);
                     filterTransactions(transactions);
                 }

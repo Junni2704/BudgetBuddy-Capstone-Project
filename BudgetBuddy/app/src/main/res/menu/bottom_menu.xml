@@ -5,12 +5,5 @@
         android:id="@+id/transaction"
         android:icon="@drawable/ic_book"
         android:title="Transactions" />
-    <item
-        android:id="@+id/stats"
-        android:icon="@drawable/ic_chart"
-        android:title="Statistics" />
-    <item
-        android:id="@+id/more"
-        android:icon="@drawable/ic_more"
-        android:title="More" />
+
 </menu>

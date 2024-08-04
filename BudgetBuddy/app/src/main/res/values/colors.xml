@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
-    <color name="blue">#03346c</color>
-    <color name="green">#3ab54a</color>
 
     <color name="cat_color1">#F44336</color>
     <color name="cat_color2">#E91E63</color>
@@ -12,4 +8,13 @@
     <color name="cat_color4">#03A9F4</color>
     <color name="cat_color5">#FF9800</color>
     <color name="cat_color6">#9C27B0</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#03346c</color>
+    <color name="green">#3ab54a</color>
+    <color name="dark_background">#121212</color>
+    <color name="light_background">#FFFFFF</color>
+    <color name="dark_text">#FFFFFF</color>
+    <color name="light_text">#000000</color>
 </resources>
